@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Data Viz Assignment</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.0.0-alpha/css/bootstrap.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/nvd3/1.8.3/nv.d3.css">
+
+    <style>
+        .m-y-1 {
+            margin-top: 1rem;
+            margin-bottom: 1rem;
+        }
+        #chart-container {
+            height: 80vh;
+        }
+        #chart {
+            height: 56vh;
+        }
+        .fl {
+            display: flex;
+            flex-direction: column;
+        }
+        .fla {
+            flex: 1 1;
+        }
+
+        .btn > input[type=checkbox], .btn > input[type=radio] {
+            display: none;
+        }
+    </style>
+</head>
+
+<body id="app">
+    <h1 class="text-xs-center m-y-1">{{ plot }}</h1>
+
+    <div class="container">
+        <div class="card">
+            <div class="card-block clearfix">
+                <div id="chart-container" class="fl" v-show="ready" style="display: none">
+                    <div class="row">
+                        <div class="col-sm-6">
+                            <div class="card">
+                                <div class="card-block text-xs-center">
+                                    <h6>Vertical Axis</h6>
+
+                                    <div class="btn-group" role="group">
+                                        <label v-for="key in dataBatting" class="btn btn-secondary" :class="{active: y == key}">
+                                            <input type="radio" name="y" :value="key"
+                                                   v-model="y"> {{ key }}
+                                        </label>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-sm-6">
+                            <div class="card">
+                                <div class="card-block text-xs-center">
+                                    <h6>Horizontal Axis</h6>
+
+                                    <div class="btn-group" role="group">
+                                        <label v-for="key in dataBowling" class="btn btn-secondary" :class="{active: x == key}">
+                                            <input type="radio" name="x" :value="key"
+                                                   v-model="x"> {{ key }}
+                                        </label>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div id="chart" class="fla">
+                        <svg></svg>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-xs-12 text-xs-center">
+                            <div class="btn-group">
+                                <label v-for="country in dataCountries" class="btn btn-secondary" :class="{active: countries.indexOf(country) > -1}">
+                                    <input type="checkbox" :value="country" v-model="countries"> {{ country }}
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+
+                <h1 class="text-center p-a-3 m-a-3 text-muted" v-show="! ready">
+                    Loading Data!
+                </h1>
+            </div>
+        </div>
+    </div>
+
+    <script src="vendor/jquery.js"></script>
+    <script src="vendor/bootstrap.js"></script>
+
+    <script src="vendor/vue.js"></script>
+    <script src="vendor/vue-resource.js"></script>
+
+    <script src="vendor/d3.js" charset="utf-8"></script>
+    <script src="vendor/nv.d3.js"></script>
+
+    <script src="script.js"></script>
+</body>
+</html>
+
+
